@@ -1,0 +1,193 @@
+@import 'tailwindcss';
+
+/* class-based dark mode (toggle adds `.dark` on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ----------------------------------------------------------------------------
+   Plume — design tokens (Tailwind v4 @theme)
+---------------------------------------------------------------------------- */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+
+  --color-ink: #0a0a0b;
+  --color-ink-soft: #1d1d1f;
+  --color-muted: #6e6e73;
+  --color-line: #e8e8ed;
+  --color-paper: #ffffff;
+  --color-paper-soft: #fafafa;
+
+  --color-brand: #6d5efc;
+  --color-brand-2: #a855f7;
+  --color-brand-3: #ec4899;
+  --color-brand-4: #38bdf8;
+
+  /* contrast/inverted sections (Stats, CTA, featured pricing). Kept as
+     separate tokens so dark mode can make them an *elevated dark* panel
+     instead of flashbang white. */
+  --color-panel: #0a0a0b;
+  --color-panel-fg: #ffffff;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+/* ----------------------------------------------------------------------------
+   Base
+---------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+}
+
+/* Dark theme — override the design tokens; every `var(--color-*)`-based
+   utility flips automatically. */
+html.dark {
+  color-scheme: dark;
+  --color-ink: #f7f7fa;
+  --color-ink-soft: #ededf2;
+  /* noticeably lighter muted for comfortable contrast on dark (~12:1) */
+  --color-muted: #c7c7d2;
+  --color-line: #32323b;
+  --color-paper: #0b0b0d;
+  --color-paper-soft: #141418;
+  --color-panel: #17171c;
+  --color-panel-fg: #f7f7fa;
+}
+
+/* Smooth the theme switch (but never animate the scroll-driven stuff). */
+html.js body,
+html.js .theme-fade {
+  transition: background-color 0.4s var(--ease-out-expo),
+    color 0.4s var(--ease-out-expo),
+    border-color 0.4s var(--ease-out-expo);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* anchor links land below the fixed nav (covers the no-Lenis path too) */
+  scroll-padding-top: 6rem;
+}
+
+/* Visible keyboard focus — required because the native cursor is hidden.
+   Pointer (mouse) interaction never triggers :focus-visible, so this stays
+   out of the way for mouse users. */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.has-custom-cursor :focus-visible {
+  /* keep the ring visible even while the custom cursor hides the pointer */
+  outline-width: 2px;
+}
+
+/* No-flash reveal: hero content is hidden before the GSAP timeline takes
+   over, but ONLY when JS is running (the inline head script adds `.js`).
+   Without JS the content stays fully visible. */
+html.js .hero-anim {
+  opacity: 0;
+}
+
+/* Lenis controls scroll; disable native smooth-scroll to avoid conflicts */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Native cursor is hidden ONLY once the custom cursor has actually
+   initialised (the component adds this class). If it never starts —
+   touch device, reduced motion, JS error — the native cursor stays. */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-brand) 25%, transparent);
+  color: var(--color-ink);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4d4dc;
+}
+
+/* ----------------------------------------------------------------------------
+   Utilities & components
+---------------------------------------------------------------------------- */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(
+      110deg,
+      var(--color-brand) 0%,
+      var(--color-brand-2) 35%,
+      var(--color-brand-3) 70%,
+      var(--color-brand-4) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .display {
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  /* word/line reveal mask */
+  .reveal-line {
+    overflow: hidden;
+    display: block;
+  }
+}
+
+/* Page transition */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+/* Reduced motion — turn off the show */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  body {
+    cursor: auto;
+  }
+}
