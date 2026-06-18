@@ -62,7 +62,7 @@ onBeforeUnmount(() => ctx?.revert())
   >
     <div class="flex flex-col justify-center py-10 lg:h-screen lg:py-0">
       <div class="mx-auto mb-10 w-full max-w-6xl px-6">
-        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-brand-strong">
           Przykłady
         </p>
         <h2 class="display text-[clamp(2rem,5vw,4rem)] text-ink">
@@ -86,7 +86,7 @@ onBeforeUnmount(() => ctx?.revert())
                 <h3 class="text-xl font-bold text-ink">{{ t.name }}</h3>
                 <span
                   v-if="t.real"
-                  class="rounded-full bg-brand/10 px-2 py-0.5 text-[11px] font-semibold text-brand"
+                  class="rounded-full bg-brand/10 px-2 py-0.5 text-[11px] font-semibold text-brand-strong"
                   >Realizacja</span
                 >
               </div>

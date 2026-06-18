@@ -6,7 +6,7 @@ useReveal(root, { childSelector: '[data-card]', y: 50, stagger: 0.1 })
 <template>
   <section id="features" ref="root" class="relative mx-auto max-w-6xl scroll-mt-24 px-6 py-12 md:py-32">
     <div class="mb-16 max-w-2xl">
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand-strong">
         Co zyskujesz
       </p>
       <h2 class="display text-[clamp(2rem,5vw,4rem)] text-ink">
@@ -23,7 +23,7 @@ useReveal(root, { childSelector: '[data-card]', y: 50, stagger: 0.1 })
       >
         <AuroraBackground :intensity="0.18" />
         <div class="relative z-10">
-          <span class="text-xs font-semibold uppercase tracking-widest text-brand"
+          <span class="text-xs font-semibold uppercase tracking-widest text-brand-strong"
             >Najważniejsze</span
           >
           <h3 class="mt-3 text-3xl font-bold text-ink">

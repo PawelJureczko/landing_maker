@@ -22,7 +22,7 @@ function toggle() {
 <template>
   <button
     data-cursor="hover"
-    aria-label="Toggle light and dark theme"
+    aria-label="Przełącz jasny i ciemny motyw"
     class="relative flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-brand/40 hover:text-brand"
     @click="toggle"
   >

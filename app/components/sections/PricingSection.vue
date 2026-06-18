@@ -53,7 +53,7 @@ const breakdown = computed(() => {
     class="relative mx-auto max-w-6xl scroll-mt-24 px-6 py-12 md:py-32"
   >
     <div class="mb-12 text-center" data-cfg>
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand-strong">
         Cennik
       </p>
       <h2 class="display text-[clamp(2rem,5vw,4rem)] text-ink">
@@ -151,6 +151,7 @@ const breakdown = computed(() => {
               type="button"
               role="switch"
               :aria-checked="rezerwacje"
+              :aria-label="rezerwacje ? 'Wyłącz rezerwacje online' : 'Włącz rezerwacje online'"
               data-cursor="hover"
               class="relative mt-1 h-7 w-12 shrink-0 rounded-full transition-colors"
               :class="rezerwacje ? 'bg-brand' : 'bg-line'"
@@ -181,7 +182,7 @@ const breakdown = computed(() => {
       <!-- right: live summary -->
       <div data-cfg class="lg:sticky lg:top-24">
         <div class="overflow-hidden rounded-3xl border-2 border-brand/30 bg-paper p-8 shadow-[0_30px_70px_-40px_rgba(109,94,252,0.6)]">
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Twoja wycena</p>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-strong">Twoja wycena</p>
 
           <div class="mt-5 flex items-baseline gap-2">
             <span class="display text-6xl text-ink">{{ startTotal }}</span>

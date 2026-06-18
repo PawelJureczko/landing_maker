@@ -30,6 +30,8 @@ function go(href: string) {
       "
     >
       <button
+        type="button"
+        aria-label="Przewiń do początku strony"
         class="group flex items-center gap-2"
         data-cursor="hover"
         @click="go('#top')"
@@ -42,6 +44,7 @@ function go(href: string) {
         <button
           v-for="l in links"
           :key="l.href"
+          type="button"
           data-cursor="hover"
           class="relative rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-ink"
           @click="go(l.href)"
@@ -53,6 +56,7 @@ function go(href: string) {
       <div class="flex items-center gap-2">
         <ThemeToggle />
         <button
+          type="button"
           data-cursor="hover"
           class="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition-transform duration-300 hover:scale-105 active:scale-95"
           @click="go('#pricing')"

@@ -62,10 +62,11 @@ const year = 2026
 
         <!-- link columns -->
         <div v-for="c in cols" :key="c.title">
-          <h4 class="text-sm font-semibold text-ink">{{ c.title }}</h4>
+          <h3 class="text-sm font-semibold text-ink">{{ c.title }}</h3>
           <ul class="mt-4 space-y-2.5">
             <li v-for="l in c.links" :key="l.label">
               <button
+                type="button"
                 data-cursor="hover"
                 class="text-sm text-muted transition-colors hover:text-ink"
                 @click="go(l.href)"
@@ -78,7 +79,7 @@ const year = 2026
 
         <!-- contact -->
         <div>
-          <h4 class="text-sm font-semibold text-ink">Masz pytania?</h4>
+          <h3 class="text-sm font-semibold text-ink">Masz pytania?</h3>
           <p class="mt-4 text-sm text-muted">
             Napisz lub zadzwoń — odpowiadamy w ciągu 24 godzin.
           </p>

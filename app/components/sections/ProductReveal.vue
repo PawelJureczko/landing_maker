@@ -84,7 +84,7 @@ const accent = computed(() => accents[active.value] ?? '#6d5efc')
       >
         <!-- left: narrative -->
         <div>
-          <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+          <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand-strong">
             Jak to działa
           </p>
           <h2 class="display mb-10 text-[clamp(2rem,4.5vw,3.5rem)] text-ink">
@@ -97,13 +97,13 @@ const accent = computed(() => accents[active.value] ?? '#6d5efc')
               :key="s.k"
               class="flex min-h-[120px] flex-col justify-start border-l-2 py-4 pl-6 transition-[border-color,opacity] duration-500"
               :class="
-                !pinned || active === i ? 'border-brand' : 'border-line opacity-40'
+                !pinned || active === i ? 'border-brand' : 'border-line'
               "
             >
               <div class="flex items-baseline gap-3">
                 <span
                   class="font-mono text-xs"
-                  :class="!pinned || active === i ? 'text-brand' : 'text-muted'"
+                  :class="!pinned || active === i ? 'text-brand-strong' : 'text-ink-soft'"
                   >{{ s.k }}</span
                 >
                 <h3 class="text-xl font-bold text-ink">{{ s.title }}</h3>

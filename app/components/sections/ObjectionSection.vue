@@ -25,7 +25,7 @@ const points = [
 <template>
   <section ref="root" class="relative mx-auto max-w-6xl scroll-mt-24 px-6 py-12 md:py-32">
     <div class="mb-12 max-w-2xl" data-obj>
-      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-brand-strong">
         Bez ściemy
       </p>
       <h2 class="display text-[clamp(2rem,5vw,4rem)] text-ink">
