@@ -60,7 +60,7 @@ const breakdown = computed(() => {
         Prosto i bez niespodzianek.
       </h2>
       <p class="mx-auto mt-5 max-w-xl text-lg text-muted">
-        Poklikaj, czego potrzebujesz — cena policzy się sama. Dokładną, wiążącą
+        Poklikaj, czego potrzebujesz - cena policzy się sama. Dokładną, wiążącą
         wycenę dostaniesz razem z darmowym projektem.
       </p>
     </div>
@@ -99,7 +99,7 @@ const breakdown = computed(() => {
         <!-- Teksty -->
         <fieldset class="rounded-3xl border border-line bg-paper p-6">
           <legend class="px-1 text-base font-bold text-ink">Teksty i zdjęcia</legend>
-          <p class="mt-1 text-sm text-muted">Opisy usług, „o nas”, zdjęcia — masz gotowe czy mamy się tym zająć?</p>
+          <p class="mt-1 text-sm text-muted">Opisy usług, „o nas”, zdjęcia - masz gotowe czy mamy się tym zająć?</p>
           <div class="mt-4 grid grid-cols-2 gap-2">
             <button type="button" data-cursor="hover"
               class="rounded-xl border px-4 py-3 text-left text-sm transition-colors"
@@ -168,11 +168,11 @@ const breakdown = computed(() => {
                 data-cursor="hover"
                 class="mt-2 w-full rounded-xl border border-line bg-paper px-4 py-3 text-sm text-ink outline-none focus-visible:border-brand"
               >
-                <option value="">— wybierz —</option>
+                <option value="">- wybierz -</option>
                 <option value="booksy">Booksy</option>
                 <option value="calendly">Calendly</option>
                 <option value="inny">Inny system</option>
-                <option value="brak">Nie mam — pomóżcie wybrać</option>
+                <option value="brak">Nie mam - pomóżcie wybrać</option>
               </select>
             </div>
           </Transition>

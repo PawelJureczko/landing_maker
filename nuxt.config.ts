@@ -15,7 +15,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'witrynovo.pl — strony internetowe dla lokalnych firm',
+      title: 'witrynovo.pl - strony internetowe dla lokalnych firm',
       htmlAttrs: { lang: 'pl' },
       script: [
         {
@@ -33,7 +33,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Tworzymy proste, dopracowane strony internetowe dla lokalnych firm — fryzjerów, mechaników, kwiaciarni i innych. Darmowy projekt, płacisz dopiero gdy Ci się spodoba.',
+            'Tworzymy proste, dopracowane strony internetowe dla lokalnych firm - fryzjerów, mechaników, kwiaciarni i innych. Darmowy projekt, płacisz dopiero gdy Ci się spodoba.',
         },
         { name: 'theme-color', content: '#ffffff' },
         // Open Graph (Facebook, LinkedIn, Messenger…)
@@ -43,7 +43,7 @@ export default defineNuxtConfig({
         { property: 'og:url', content: 'https://witrynovo.pl/' },
         {
           property: 'og:title',
-          content: 'witrynovo.pl — strony internetowe dla lokalnych firm',
+          content: 'witrynovo.pl - strony internetowe dla lokalnych firm',
         },
         {
           property: 'og:description',
@@ -55,13 +55,13 @@ export default defineNuxtConfig({
         { property: 'og:image:height', content: '630' },
         {
           property: 'og:image:alt',
-          content: 'witrynovo.pl — strony internetowe dla lokalnych firm',
+          content: 'witrynovo.pl - strony internetowe dla lokalnych firm',
         },
         // Twitter / X
         { name: 'twitter:card', content: 'summary_large_image' },
         {
           name: 'twitter:title',
-          content: 'witrynovo.pl — strony internetowe dla lokalnych firm',
+          content: 'witrynovo.pl - strony internetowe dla lokalnych firm',
         },
         {
           name: 'twitter:description',

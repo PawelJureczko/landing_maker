@@ -27,7 +27,7 @@ useReveal(root, { childSelector: '[data-card]', y: 50, stagger: 0.1 })
             >Najważniejsze</span
           >
           <h3 class="mt-3 text-3xl font-bold text-ink">
-            Klienci, którzy i tak Cię szukają — trafią właśnie do Ciebie.
+            Klienci, którzy i tak Cię szukają - trafią właśnie do Ciebie.
           </h3>
           <p class="mt-3 max-w-md text-muted">
             Codziennie ktoś wpisuje w Google „[Twoja usługa] w okolicy”. Bez
@@ -48,23 +48,23 @@ useReveal(root, { childSelector: '[data-card]', y: 50, stagger: 0.1 })
       <FeatureCard
         icon="wand"
         title="Wyglądasz profesjonalnie"
-        body="Prawdziwa strona budzi zaufanie. Wyróżniasz się od konkurencji, która ma tylko profil na Facebooku — i świetnie wygląda na telefonie."
+        body="Prawdziwa strona budzi zaufanie. Wyróżniasz się od konkurencji, która ma tylko profil na Facebooku - i świetnie wygląda na telefonie."
       />
       <FeatureCard
         icon="chart"
         title="Znajdą Cię w Google"
-        body="Optymalizujemy stronę pod lokalne wyszukiwania — gdy ktoś szuka „[usługa] [miasto]”, pokazujesz się właśnie Ty."
+        body="Optymalizujemy stronę pod lokalne wyszukiwania - gdy ktoś szuka „[usługa] [miasto]”, pokazujesz się właśnie Ty."
         wide
       />
       <FeatureCard
         icon="lock"
         title="Zero technicznych zmartwień"
-        body="Hosting, domena, bezpieczeństwo, drobne zmiany — wszystkim zajmujemy się my. Ty robisz swoje."
+        body="Hosting, domena, bezpieczeństwo, drobne zmiany - wszystkim zajmujemy się my. Ty robisz swoje."
       />
       <FeatureCard
         icon="forms"
         title="Rezerwacje i kontakt od ręki"
-        body="Przycisk rezerwacji (Booksy, Calendly), telefon, mapa, godziny otwarcia — klient działa jednym kliknięciem."
+        body="Przycisk rezerwacji (Booksy, Calendly), telefon, mapa, godziny otwarcia - klient działa jednym kliknięciem."
       />
     </div>
   </section>

@@ -111,7 +111,7 @@ onBeforeUnmount(() => {
           />
           <span class="relative inline-flex h-2 w-2 rounded-full bg-brand" />
         </span>
-        Darmowy projekt strony — dla lokalnych firm w całej Polsce
+        Darmowy projekt strony - dla lokalnych firm w całej Polsce
       </div>
 
       <h1
@@ -151,7 +151,7 @@ onBeforeUnmount(() => {
       >
         Tworzymy proste, dopracowane strony dla fryzjerów, mechaników,
         kwiaciarni i innych lokalnych firm. Wypełnij krótki formularz, a my
-        przygotujemy <span class="text-ink">gotowy projekt Twojej strony</span> —
+        przygotujemy <span class="text-ink">gotowy projekt Twojej strony</span> -
         bez opłat z góry, bez zobowiązań. Strona, która realnie przyciąga nowych
         klientów.
       </p>

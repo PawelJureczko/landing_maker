@@ -27,7 +27,7 @@ useTilt(shot, 6)
           data-cs
           class="text-balance text-2xl font-medium leading-snug md:text-[1.75rem]"
         >
-          „To nie jest po prostu ładna strona — to
+          „To nie jest po prostu ładna strona - to
           <span class="text-gradient"
             >narzędzie, które realnie pomaga nam zdobywać klientów</span
           >. witrynovo.pl świetnie wyczuli klimat naszego barbershopu i

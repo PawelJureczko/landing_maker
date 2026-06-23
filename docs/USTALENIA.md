@@ -113,7 +113,9 @@ Ton i copy: **po polsku**, język właściciela zakładu, bez żargonu.
 - **GSAP + ScrollTrigger** (animacje, scroll-driven), **Lenis** (smooth scroll)
 - Tryb **jasny i ciemny** (toggle, zapis w `localStorage`, bez flasha)
 - Dostępność: `:focus-visible`, `prefers-reduced-motion`, `aria-*`
-- `robots.txt` + `sitemap.xml` w `public/`
+- `robots.txt` + `sitemap.xml` w `public/` (domena `https://witrynovo.pl/`)
+- **SEO/social:** komplet favicon, `og.png`, meta Open Graph + Twitter card,
+  `canonical` — konfigurowane w `nuxt.config.ts` (`app.head`)
 - Zrzut realizacji: `public/img/razorsznyt.png`
 
 ## 10. Do zrobienia (techniczne)
@@ -138,3 +140,55 @@ Ton i copy: **po polsku**, język właściciela zakładu, bez żargonu.
 | `+48 000 000 000` | stopka — **do podmiany** |
 | `twojafirma.pl` | przykłady, makiety (to celowo nazwa-przykład klienta) |
 | Ceny (499 / 49 / 300 / 400 / 80 / 20) | `app/components/sections/PricingSection.vue` (obiekt `P`) |
+
+## 12. Identyfikacja wizualna marki
+
+- **Nazwa:** `witrynovo.pl` (gra słowem *witryna* = okno wystawowe / strona www
+  + *novo* = nowe). W logotypie i nawigacji końcówka `.pl` w kolorze
+  `--color-brand-2` (`#a855f7`).
+- **Logo:** monogram **„W"** kreślony firmowym gradientem. Źródło:
+  `app/components/BrandLogo.vue` (`viewBox 0 0 64 64`, `stroke-width 9`,
+  zaokrąglone końce). Używane w nawigacji i stopce (`h-7 w-7`).
+- **Gradient marki:** `#6d5efc → #a855f7 → #ec4899` (akcent sky `#38bdf8`).
+  Tokeny w `app/assets/css/main.css` (`@theme`).
+- **Typografia:** Inter (waga 800, `letter-spacing -0.04em`) dla wordmarku;
+  Instrument Serif jako font ozdobny.
+- **Favicon (wersja „kontenerowa" dla czytelności w małych rozmiarach):**
+  gradientowy zaokrąglony kafelek + białe „W". Pliki w `public/`:
+  `favicon.svg`, `favicon.ico` (16+32 px), `favicon-16x16.png`,
+  `favicon-32x32.png`, `apple-touch-icon.png` (180 px). Podpięte w
+  `nuxt.config.ts` → `app.head.link[]`.
+- **Open Graph / social:** `public/og.png` (1200×630, ciemne tło + brandowa
+  poświata, logo, hasło i tagline). Meta `og:*` + `twitter:card=summary_large_image`
+  oraz `canonical https://witrynovo.pl/` w `nuxt.config.ts`.
+
+> Uwaga: logo na stronie to gradientowe „W" na przezroczystym tle, a favicon to
+> jego wersja w kafelku — oba pochodzą z tego samego monogramu (spójne).
+
+## 13. Dziennik zmian
+
+### 2026-06-23 — wdrożenie marki witrynovo.pl
+- Wybrano nazwę **witrynovo.pl** oraz logo (monogram „W", opcja #4 z 10 propozycji).
+- Podmieniono markę w całej stronie: nawigacja, stopka, cytat w case study,
+  `title`/`description`, e-mail (`kontakt@witrynovo.pl`), klucz motywu
+  w `localStorage` (`witrynovo-theme`), `sitemap.xml`, `robots.txt`,
+  `package.json` (`name`), komentarze w CSS.
+- Dodano komponent `BrandLogo.vue`; usunięto `PlumeLogo.vue`.
+- Zwężono odstęp logo ↔ wordmark w navbarze (`gap-2` → `gap-1.5`).
+- Dodano komplet favicon, `og.png` oraz pełne meta OG/Twitter + `canonical`.
+- Usunięto artefakty robocze z fazy wyboru logo (podstrona `/test`,
+  `public/img/logos/` — galeria i 10 propozycji).
+- Commity: `0f80fcb` (branding) i `8b167ad` (usunięcie artefaktów),
+  wypchnięte na `origin/main` (deploy Cloudflare).
+- **Pozostaje:** realny numer telefonu w stopce (wciąż placeholder
+  `+48 000 000 000`).
+
+### 2026-06-23 — UX i typografia
+- **Sekcja „Jak to działa" (`ProductReveal.vue`):** skrócono pinowany scroll
+  `lg:h-[400vh]` → `lg:h-[300vh]`. Przewijanie w przypiętej sekcji: 3.00 → 2.00
+  ekranu; kroki 01–04 przełączają się szybciej (~50vh na krok). Mobile / touch /
+  reduced-motion bez zmian (tam brak pinowania). Zweryfikowano realnym
+  przewijaniem (Chrome DevTools Protocol).
+- **Myślniki:** w widocznym tekście strony zamieniono długie myślniki `—` na
+  krótkie `-` (29 wystąpień: sekcje + meta `title`/`description`/OG/Twitter
+  w `nuxt.config.ts`). Komentarze w kodzie pominięto (niewidoczne na stronie).

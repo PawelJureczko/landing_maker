@@ -10,7 +10,7 @@ const steps = [
   {
     k: '01',
     title: 'Wypełnij formularz',
-    body: 'Krótki formularz o Twojej firmie — branża, nazwa, co oferujesz. Zajmie Ci dwie minuty.',
+    body: 'Krótki formularz o Twojej firmie - branża, nazwa, co oferujesz. Zajmie Ci dwie minuty.',
   },
   {
     k: '02',
@@ -20,7 +20,7 @@ const steps = [
   {
     k: '03',
     title: 'Poprawiamy do skutku',
-    body: 'Coś nie gra? Masz dwie darmowe rundy poprawek — dopracowujemy stronę, aż będzie dokładnie taka, jak chcesz.',
+    body: 'Coś nie gra? Masz dwie darmowe rundy poprawek - dopracowujemy stronę, aż będzie dokładnie taka, jak chcesz.',
   },
   {
     k: '04',
@@ -75,7 +75,7 @@ const accent = computed(() => accents[active.value] ?? '#6d5efc')
 </script>
 
 <template>
-  <section id="how" ref="root" class="relative scroll-mt-24 bg-paper lg:h-[400vh]">
+  <section id="how" ref="root" class="relative scroll-mt-24 bg-paper lg:h-[300vh]">
     <div
       class="flex items-center overflow-visible py-12 lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden lg:py-0"
     >

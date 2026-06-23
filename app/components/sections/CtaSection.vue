@@ -62,7 +62,7 @@ const inputClass =
             <span class="text-gradient font-serif italic">Twoja strona.</span>
           </h2>
           <p data-cta-fade class="mt-5 max-w-md text-lg text-panel-fg/70">
-            Wypełnij formularz — przygotujemy darmowy projekt pod Twoją firmę.
+            Wypełnij formularz - przygotujemy darmowy projekt pod Twoją firmę.
             Bez opłat z góry, bez zobowiązań.
           </p>
           <ul data-cta-fade class="mt-8 space-y-3">
@@ -119,7 +119,7 @@ const inputClass =
                 <label for="f-branza" class="mb-1.5 block text-sm text-panel-fg/70">Branża *</label>
                 <select id="f-branza" v-model="form.branza"
                   :class="[inputClass, tried && !form.branza ? 'border-red-400' : 'border-panel-fg/15']">
-                  <option value="">— wybierz —</option>
+                  <option value="">- wybierz -</option>
                   <option v-for="b in branze" :key="b" :value="b">{{ b }}</option>
                 </select>
               </div>

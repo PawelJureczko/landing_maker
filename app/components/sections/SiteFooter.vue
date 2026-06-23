@@ -81,7 +81,7 @@ const year = 2026
         <div>
           <h3 class="text-sm font-semibold text-ink">Masz pytania?</h3>
           <p class="mt-4 text-sm text-muted">
-            Napisz lub zadzwoń — odpowiadamy w ciągu 24 godzin.
+            Napisz lub zadzwoń - odpowiadamy w ciągu 24 godzin.
           </p>
           <a
             href="mailto:kontakt@witrynovo.pl"
