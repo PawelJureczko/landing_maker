@@ -7,6 +7,17 @@ export default defineNuxtConfig({
 
   modules: ['@vueuse/nuxt'],
 
+  runtimeConfig: {
+    databaseUrl: '',
+    leadNotifyTo: '',
+    smtp: { host: '', port: '', from: '' },
+  },
+
+  routeRules: {
+    '/': { prerender: true },
+    '/polityka-prywatnosci': { prerender: true },
+  },
+
   css: ['~/assets/css/main.css'],
 
   vite: {
