@@ -1,7 +1,8 @@
-# Ustalenia — strona [TwojaMarka]
+# Ustalenia — strona witrynovo.pl
 
 > Dokument zbiera wszystkie decyzje biznesowe i treściowe dotyczące strony.
-> Stan na: **18.06.2026**. Marka i ceny to placeholdery do podmiany.
+> Stan na: **18.06.2026**. Nazwa marki: **witrynovo.pl** (zdecydowana 23.06.2026).
+> Ceny to nadal placeholdery do podmiany.
 
 ---
 
@@ -86,7 +87,7 @@ Interaktywny, cena liczona na żywo. Etykiety **bez żargonu**, z podpowiedziami
 - **Przed/po:** wcześniej tylko Instagram + Facebook → dziś własna strona.
 - **Opinia (placeholder do potwierdzenia u klienta):**
   > „To nie jest po prostu ładna strona — to narzędzie, które realnie pomaga nam
-  > zdobywać klientów. [TwojaMarka] świetnie wyczuli klimat naszego barbershopu
+  > zdobywać klientów. witrynovo.pl świetnie wyczuli klimat naszego barbershopu
   > i przełożyli go na stronę, która wygląda dobrze i działa jeszcze lepiej.”
 - Pozostałe przykłady (kwiaciarnia, mechanik, restauracja…) = makiety demo,
   uczciwie podpisane „Przykład”.
@@ -119,8 +120,9 @@ Ton i copy: **po polsku**, język właściciela zakładu, bez żargonu.
 
 - [ ] **Realna wysyłka formularza** — endpoint Formspree lub server route → mail
       (oznaczone `TODO` w `CtaSection.vue`)
-- [ ] **Prawdziwa nazwa marki** — podmiana `[TwojaMarka]` (nav, stopka, tytuł,
-      meta, mail, telefon, domena `twojamarka.pl`)
+- [x] **Prawdziwa nazwa marki** — `witrynovo.pl` wdrożona (nav, stopka, tytuł,
+      meta OG/Twitter, mail `kontakt@witrynovo.pl`, logo, favicon, og.png,
+      sitemap/robots). Pozostaje: realny **telefon** kontaktowy.
 - [ ] **Polityka prywatności + Regulamin** (RODO — wymagane przy zbieraniu danych)
 - [ ] Potwierdzić realną **opinię** od Razor Sznyt (najlepiej o efekcie biznesowym)
 - [ ] Ustalić finalne **ceny** (obecne są robocze)
@@ -131,8 +133,8 @@ Ton i copy: **po polsku**, język właściciela zakładu, bez żargonu.
 
 | Placeholder | Gdzie |
 |---|---|
-| `[TwojaMarka]` | nav, stopka, `nuxt.config.ts` (title/description), case study |
-| `kontakt@twojamarka.pl` | stopka |
-| `+48 000 000 000` | stopka |
+| ~~`[TwojaMarka]`~~ → `witrynovo.pl` | ✅ podmienione (nav, stopka, title/meta, case study) |
+| ~~`kontakt@twojamarka.pl`~~ → `kontakt@witrynovo.pl` | ✅ podmienione (stopka) |
+| `+48 000 000 000` | stopka — **do podmiany** |
 | `twojafirma.pl` | przykłady, makiety (to celowo nazwa-przykład klienta) |
 | Ceny (499 / 49 / 300 / 400 / 80 / 20) | `app/components/sections/PricingSection.vue` (obiekt `P`) |

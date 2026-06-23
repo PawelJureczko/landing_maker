@@ -5,7 +5,7 @@
  * click → flip + persist. Icons are swapped via the CSS `dark:` variant,
  * not JS state, to avoid any hydration mismatch.
  */
-const STORAGE_KEY = 'plume-theme'
+const STORAGE_KEY = 'witrynovo-theme'
 
 function toggle() {
   const el = document.documentElement

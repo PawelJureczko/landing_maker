@@ -32,12 +32,12 @@ function go(href: string) {
       <button
         type="button"
         aria-label="Przewiń do początku strony"
-        class="group flex items-center gap-2"
+        class="group flex items-center gap-1.5"
         data-cursor="hover"
         @click="go('#top')"
       >
-        <PlumeLogo class="h-7 w-7" />
-        <span class="text-lg font-extrabold tracking-tight text-ink">[TwojaMarka]</span>
+        <BrandLogo class="h-7 w-7" />
+        <span class="text-lg font-extrabold tracking-tight text-ink">witrynovo<span class="text-brand-2">.pl</span></span>
       </button>
 
       <div class="hidden items-center gap-1 md:flex">

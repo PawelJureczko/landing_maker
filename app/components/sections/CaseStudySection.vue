@@ -30,7 +30,7 @@ useTilt(shot, 6)
           „To nie jest po prostu ładna strona — to
           <span class="text-gradient"
             >narzędzie, które realnie pomaga nam zdobywać klientów</span
-          >. [TwojaMarka] świetnie wyczuli klimat naszego barbershopu i
+          >. witrynovo.pl świetnie wyczuli klimat naszego barbershopu i
           przełożyli go na stronę, która wygląda dobrze i działa jeszcze
           lepiej.”
         </blockquote>

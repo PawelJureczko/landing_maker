@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{ url?: string; accent?: string }>(),
-  { url: 'plume.site/your-launch', accent: '#6d5efc' },
+  { url: 'twojafirma.pl', accent: '#6d5efc' },
 )
 </script>
 

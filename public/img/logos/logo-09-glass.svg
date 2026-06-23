@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" fill="none" role="img" aria-label="witrynovo.pl">
+  <defs>
+    <linearGradient id="g9" x1="10" y1="15" x2="54" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6d5efc"/><stop offset=".5" stop-color="#a855f7"/><stop offset="1" stop-color="#ec4899"/>
+    </linearGradient>
+    <clipPath id="c9"><rect x="10" y="15" width="44" height="42" rx="13"/></clipPath>
+  </defs>
+  <rect x="10" y="15" width="44" height="42" rx="13" fill="url(#g9)"/>
+  <g clip-path="url(#c9)">
+    <path d="M24 60 L44 12 L52 12 L32 60 Z" fill="#fff" opacity=".22"/>
+    <path d="M14 60 L28 12 L33 12 L19 60 Z" fill="#fff" opacity=".14"/>
+  </g>
+  <text x="82" y="47" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="30" letter-spacing="-1.4" fill="currentColor">witrynovo<tspan fill="#a855f7">.pl</tspan></text>
+</svg>

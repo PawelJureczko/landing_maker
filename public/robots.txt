@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Replace with your production domain when deploying.
-Sitemap: https://plume.site/sitemap.xml
+Sitemap: https://witrynovo.pl/sitemap.xml

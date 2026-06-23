@@ -40,8 +40,8 @@ const year = 2026
         <!-- brand -->
         <div>
           <div class="flex items-center gap-2">
-            <PlumeLogo class="h-7 w-7" />
-            <span class="text-lg font-extrabold tracking-tight text-ink">[TwojaMarka]</span>
+            <BrandLogo class="h-7 w-7" />
+            <span class="text-lg font-extrabold tracking-tight text-ink">witrynovo<span class="text-brand-2">.pl</span></span>
           </div>
           <p class="mt-4 max-w-xs text-sm text-muted">
             Proste, dopracowane strony internetowe dla lokalnych firm. Darmowy
@@ -84,10 +84,10 @@ const year = 2026
             Napisz lub zadzwoń — odpowiadamy w ciągu 24 godzin.
           </p>
           <a
-            href="mailto:kontakt@twojamarka.pl"
+            href="mailto:kontakt@witrynovo.pl"
             data-cursor="hover"
             class="mt-3 block text-sm font-medium text-ink transition-colors hover:text-brand"
-            >kontakt@twojamarka.pl</a
+            >kontakt@witrynovo.pl</a
           >
           <a
             href="tel:+48000000000"
@@ -101,7 +101,7 @@ const year = 2026
       <div
         class="mt-14 flex flex-col items-center justify-between gap-4 border-t border-line pt-8 text-sm text-muted md:flex-row"
       >
-        <p>© {{ year }} [TwojaMarka]. Wszelkie prawa zastrzeżone.</p>
+        <p>© {{ year }} witrynovo.pl. Wszelkie prawa zastrzeżone.</p>
         <div class="flex gap-5">
           <a href="#" data-cursor="hover" class="transition-colors hover:text-ink">Polityka prywatności</a>
           <a href="#" data-cursor="hover" class="transition-colors hover:text-ink">Regulamin</a>
