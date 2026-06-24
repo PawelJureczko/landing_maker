@@ -1,150 +1,84 @@
 /**
- * Path 2 minimal: pure node environment, no DOM, exercise submit logic directly.
+ * Testuje REALNĄ logikę formularza CtaSection przez współdzielony composable
+ * `useLeadForm` (ten sam kod, którego używa komponent) — bez duplikacji.
  *
- * Both Nuxt test environment and happy-dom environment cause worker-pool hangs
- * in this sandbox (nuxt@4.4.5 + @nuxt/test-utils@4.0.3 + vitest@4.1.9).
- * The docblock env annotation triggers the same worker timeout
- * for both 'happy-dom' and '@nuxt/test-utils/dist/vitest-environment.mjs'.
- *
- * Strategy: import the component's submit logic as an isolated unit by
- * extracting it from the SFC's script setup and testing the reactive state
- * machine directly in node, mocking $fetch on globalThis.
+ * Node env, bez DOM-u: środowiska Nuxt i happy-dom zawieszają pulę workerów
+ * vitest w tym sandboxie (nuxt@4.4.5 + @nuxt/test-utils@4.0.3). Logika wysyłki
+ * nie potrzebuje DOM-u, więc testujemy ją bezpośrednio, mockując globalny $fetch.
+ * Render szablonu (ukrycie honeypota, checkbox, animacja sukcesu) pozostaje do
+ * weryfikacji ręcznym smoke'em w przeglądarce.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { reactive, ref, computed, onMounted } from 'vue'
+import { useLeadForm } from '../../app/composables/useLeadForm'
 
 const mockFetch = vi.fn()
 ;(globalThis as any).$fetch = mockFetch
 
-// Replicate the exact submit logic from CtaSection.vue
-function useCtaForm() {
-  const form = reactive({
-    imie: '',
-    kontakt: '',
-    branza: '',
-    firma: '',
-    wiadomosc: '',
-    zgoda: false,
-    website: '',
-  })
-  const submitted = ref(false)
-  const tried = ref(false)
-  const submitting = ref(false)
-  const submitError = ref('')
-  const serverErrors = reactive<Record<string, string>>({})
-  const renderedAt = ref(0)
-  onMounted(() => { renderedAt.value = Date.now() })
+beforeEach(() => {
+  mockFetch.mockReset()
+})
 
-  const valid = computed(
-    () => form.imie.trim() && form.kontakt.trim() && form.branza && form.zgoda,
-  )
-
-  async function submit() {
-    tried.value = true
-    submitError.value = ''
-    Object.keys(serverErrors).forEach((k) => delete serverErrors[k])
-    if (!valid.value) return
-    submitting.value = true
-    try {
-      await (globalThis as any).$fetch('/api/leads', {
-        method: 'POST',
-        body: {
-          imie: form.imie,
-          kontakt: form.kontakt,
-          branza: form.branza,
-          firma: form.firma,
-          wiadomosc: form.wiadomosc,
-          website: form.website,
-          ts: renderedAt.value,
-        },
-      })
-      submitted.value = true
-    } catch (e: any) {
-      if (e?.statusCode === 422 && e?.data?.errors) {
-        Object.assign(serverErrors, e.data.errors)
-      } else {
-        submitError.value = 'Coś poszło nie tak. Spróbuj ponownie lub zadzwoń.'
-      }
-    } finally {
-      submitting.value = false
-    }
-  }
-
-  return { form, submitted, tried, submitting, submitError, serverErrors, renderedAt, valid, submit }
-}
-
-describe('CtaSection submit logic', () => {
-  beforeEach(() => {
-    mockFetch.mockReset()
-    mockFetch.mockResolvedValue({ ok: true })
+describe('useLeadForm (logika CtaSection)', () => {
+  it('nie wysyła, gdy brakuje zgody', async () => {
+    const f = useLeadForm()
+    Object.assign(f.form, { imie: 'Jan', kontakt: 'jan@firma.pl', branza: 'Barber' })
+    // zgoda celowo nie zaznaczona
+    await f.submit()
+    expect(mockFetch).not.toHaveBeenCalled()
+    expect(f.submitted.value).toBe(false)
   })
 
-  it('posts to /api/leads with honeypot and ts, sets submitted=true on success', async () => {
-    const { form, submitted, valid, submit, renderedAt } = useCtaForm()
-    renderedAt.value = 1700000000000  // simulate onMounted
-
-    form.imie = 'Jan'
-    form.kontakt = 'jan@firma.pl'
-    form.branza = 'Barber'
-    form.zgoda = true
-
-    expect(valid.value).toBeTruthy()
-
-    await submit()
+  it('wysyła leada na /api/leads z honeypotem i ts, pokazuje sukces', async () => {
+    mockFetch.mockResolvedValueOnce({ ok: true })
+    const f = useLeadForm()
+    f.markRendered()
+    Object.assign(f.form, {
+      imie: 'Jan',
+      kontakt: 'jan@firma.pl',
+      branza: 'Barber',
+      zgoda: true,
+    })
+    await f.submit()
 
     expect(mockFetch).toHaveBeenCalledOnce()
     const [url, opts] = mockFetch.mock.calls[0]
     expect(url).toBe('/api/leads')
     expect(opts.method).toBe('POST')
-    expect(opts.body).toMatchObject({ imie: 'Jan', kontakt: 'jan@firma.pl', branza: 'Barber' })
-    // honeypot field present (empty string for real humans)
-    expect(opts.body).toHaveProperty('website', '')
-    // timestamp present
-    expect(opts.body.ts).toBe(1700000000000)
-    // success state
-    expect(submitted.value).toBe(true)
+    expect(opts.body).toMatchObject({
+      imie: 'Jan',
+      kontakt: 'jan@firma.pl',
+      branza: 'Barber',
+      website: '',
+    })
+    expect(opts.body).toHaveProperty('ts')
+    expect(f.submitted.value).toBe(true)
   })
 
-  it('does not post when zgoda is false', async () => {
-    const { form, valid, submit } = useCtaForm()
+  it('mapuje błędy 422 na serverErrors i nie pokazuje sukcesu', async () => {
+    mockFetch.mockRejectedValueOnce({
+      statusCode: 422,
+      data: { errors: { kontakt: 'Podaj poprawny telefon lub e-mail' } },
+    })
+    const f = useLeadForm()
+    Object.assign(f.form, { imie: 'Jan', kontakt: 'x', branza: 'Barber', zgoda: true })
+    await f.submit()
 
-    form.imie = 'Jan'
-    form.kontakt = 'jan@firma.pl'
-    form.branza = 'Barber'
-    // form.zgoda remains false
-
-    expect(valid.value).toBeFalsy()
-
-    await submit()
-
-    expect(mockFetch).not.toHaveBeenCalled()
+    expect(f.serverErrors.kontakt).toBe('Podaj poprawny telefon lub e-mail')
+    expect(f.submitted.value).toBe(false)
   })
 
-  it('sets submitError on unexpected server error', async () => {
-    mockFetch.mockRejectedValue({ statusCode: 500 })
-    const { form, submitError, submit, renderedAt } = useCtaForm()
-    renderedAt.value = Date.now()
-    form.imie = 'Jan'
-    form.kontakt = 'jan@firma.pl'
-    form.branza = 'Barber'
-    form.zgoda = true
+  it('pokazuje ogólny komunikat przy innym błędzie serwera', async () => {
+    mockFetch.mockRejectedValueOnce({ statusCode: 500 })
+    const f = useLeadForm()
+    Object.assign(f.form, {
+      imie: 'Jan',
+      kontakt: 'jan@firma.pl',
+      branza: 'Barber',
+      zgoda: true,
+    })
+    await f.submit()
 
-    await submit()
-
-    expect(submitError.value).toBe('Coś poszło nie tak. Spróbuj ponownie lub zadzwoń.')
-  })
-
-  it('populates serverErrors on 422 validation failure', async () => {
-    mockFetch.mockRejectedValue({ statusCode: 422, data: { errors: { imie: 'Za krótkie' } } })
-    const { form, serverErrors, submit, renderedAt } = useCtaForm()
-    renderedAt.value = Date.now()
-    form.imie = 'J'
-    form.kontakt = 'jan@firma.pl'
-    form.branza = 'Barber'
-    form.zgoda = true
-
-    await submit()
-
-    expect(serverErrors.imie).toBe('Za krótkie')
+    expect(f.submitError.value).toContain('Coś poszło nie tak')
+    expect(f.submitted.value).toBe(false)
   })
 })
