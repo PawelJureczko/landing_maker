@@ -8,19 +8,53 @@ const form = reactive({
   branza: '',
   firma: '',
   wiadomosc: '',
+  zgoda: false,
+  website: '', // honeypot — ukryte, ludzie nie wypełniają
 })
 const submitted = ref(false)
 const tried = ref(false)
+const submitting = ref(false)
+const submitError = ref('')
+const serverErrors = reactive<Record<string, string>>({})
+
+const renderedAt = ref(0)
+onMounted(() => {
+  renderedAt.value = Date.now()
+})
 
 const valid = computed(
-  () => form.imie.trim() && form.kontakt.trim() && form.branza,
+  () => form.imie.trim() && form.kontakt.trim() && form.branza && form.zgoda,
 )
 
-function submit() {
+async function submit() {
   tried.value = true
+  submitError.value = ''
+  Object.keys(serverErrors).forEach((k) => delete serverErrors[k])
   if (!valid.value) return
-  // TODO: podłączyć realną wysyłkę (np. Formspree / server route → mail)
-  submitted.value = true
+  submitting.value = true
+  try {
+    await $fetch('/api/leads', {
+      method: 'POST',
+      body: {
+        imie: form.imie,
+        kontakt: form.kontakt,
+        branza: form.branza,
+        firma: form.firma,
+        wiadomosc: form.wiadomosc,
+        website: form.website,
+        ts: renderedAt.value,
+      },
+    })
+    submitted.value = true
+  } catch (e: any) {
+    if (e?.statusCode === 422 && e?.data?.errors) {
+      Object.assign(serverErrors, e.data.errors)
+    } else {
+      submitError.value = 'Coś poszło nie tak. Spróbuj ponownie lub zadzwoń.'
+    }
+  } finally {
+    submitting.value = false
+  }
 }
 
 const branze = [
@@ -136,15 +170,40 @@ const inputClass =
                   :class="[inputClass, 'resize-none border-panel-fg/15']" />
               </div>
 
+              <!-- honeypot: ukryte przed ludźmi, łapie boty -->
+              <div aria-hidden="true" class="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+                <label>Strona WWW
+                  <input v-model="form.website" type="text" tabindex="-1" autocomplete="off" />
+                </label>
+              </div>
+
+              <label class="flex items-start gap-2.5 text-xs text-panel-fg/70">
+                <input
+                  id="f-zgoda"
+                  v-model="form.zgoda"
+                  type="checkbox"
+                  class="mt-0.5 h-4 w-4 shrink-0 accent-brand"
+                />
+                <span>
+                  Wyrażam zgodę na przetwarzanie moich danych w celu kontaktu i przygotowania
+                  projektu. Szczegóły w
+                  <NuxtLink to="/polityka-prywatnosci" class="text-brand-4 underline">polityce prywatności</NuxtLink>.
+                </span>
+              </label>
+
               <button
                 type="submit"
                 data-cursor="hover"
-                class="w-full rounded-full bg-gradient-to-r from-brand via-brand-2 to-brand-3 py-3.5 text-sm font-semibold text-white transition-transform duration-300 hover:scale-[1.02] active:scale-95"
+                :disabled="submitting"
+                class="w-full rounded-full bg-gradient-to-r from-brand via-brand-2 to-brand-3 py-3.5 text-sm font-semibold text-white transition-transform duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-60"
               >
-                Odbieram darmowy projekt
+                {{ submitting ? 'Wysyłam...' : 'Odbieram darmowy projekt' }}
               </button>
-              <p v-if="tried && !valid" class="text-center text-xs text-red-400">
-                Uzupełnij imię, kontakt i branżę.
+              <p v-if="submitError" class="text-center text-xs text-red-400">
+                {{ submitError }}
+              </p>
+              <p v-else-if="tried && !valid" class="text-center text-xs text-red-400">
+                Uzupełnij imię, kontakt, branżę i zaznacz zgodę.
               </p>
               <p v-else class="text-center text-xs text-panel-fg/50">
                 Odpowiadamy w 24h · Twoje dane trafią tylko do nas
