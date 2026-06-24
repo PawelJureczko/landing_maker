@@ -11,17 +11,23 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "user:create": "tsx scripts/create-user.ts",
+    "user:reset-2fa": "tsx scripts/reset-2fa.ts"
   },
   "dependencies": {
     "@vueuse/core": "^13.0.0",
     "@vueuse/nuxt": "^13.0.0",
+    "argon2": "^0.43.1",
     "drizzle-orm": "^0.45.2",
     "gsap": "^3.12.5",
     "lenis": "^1.1.18",
     "mysql2": "^3.22.5",
     "nodemailer": "^9.0.1",
     "nuxt": "^4.0.0",
+    "nuxt-auth-utils": "^0.5.29",
+    "otpauth": "^9.5.1",
+    "qrcode": "^1.5.4",
     "valibot": "^1.4.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
@@ -30,12 +36,14 @@
     "@nuxt/test-utils": "^4.0.3",
     "@tailwindcss/vite": "^4.0.0",
     "@types/nodemailer": "^8.0.1",
+    "@types/qrcode": "^1.5.6",
     "@vue/test-utils": "^2.4.11",
     "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.10",
     "happy-dom": "^20.10.6",
     "puppeteer-core": "^24.43.1",
     "tailwindcss": "^4.0.0",
+    "tsx": "^4.22.4",
     "vitest": "^4.1.9"
   }
 }
