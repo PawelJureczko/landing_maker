@@ -120,18 +120,22 @@ Ton i copy: **po polsku**, język właściciela zakładu, bez żargonu.
 
 ## 10. Do zrobienia (techniczne)
 
-- [ ] **Realna wysyłka formularza** — endpoint Formspree lub server route → mail
-      (oznaczone `TODO` w `CtaSection.vue`)
+- [x] **Realna wysyłka formularza** — `$fetch POST /api/leads` z honeypot, timestamp `ts`, zgodą RODO
+      (Task 6 — `CtaSection.vue`)
 - [x] **Prawdziwa nazwa marki** — `witrynovo.pl` wdrożona (nav, stopka, tytuł,
       meta OG/Twitter, mail `kontakt@witrynovo.pl`, logo, favicon, og.png,
       sitemap/robots). Pozostaje: realny **telefon** kontaktowy.
-- [ ] **Polityka prywatności + Regulamin** (RODO — wymagane przy zbieraniu danych)
+- [x] **Polityka prywatności** (RODO) — `app/pages/polityka-prywatnosci.vue` (Task 6)
 - [ ] Potwierdzić realną **opinię** od Razor Sznyt (najlepiej o efekcie biznesowym)
 - [ ] Ustalić finalne **ceny** (obecne są robocze)
 - [ ] Opcjonalnie: prawdziwe zdjęcia/treści w demo-przykładach zamiast makiet
 - [ ] Faza 2: regionalne subdomeny pod lokalne SEO
 
 ## 11. Placeholdery do podmiany
+
+> Anti-spam: honeypot (`website` field, hidden) i time-trap (`ts` = `Date.now()` na `onMounted`) dodane w formularzu (Task 6). ✅
+
+
 
 | Placeholder | Gdzie |
 |---|---|
