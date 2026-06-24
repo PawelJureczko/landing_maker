@@ -131,6 +131,26 @@ Ton i copy: **po polsku**, język właściciela zakładu, bez żargonu.
 - [ ] Opcjonalnie: prawdziwe zdjęcia/treści w demo-przykładach zamiast makiet
 - [ ] Faza 2: regionalne subdomeny pod lokalne SEO
 
+### Bramki przed produkcją (Warstwa 1 — leady)
+
+- [ ] **Smoke end-to-end** — odpalić lokalnie `docker compose up -d` + `npm run dev`,
+      wysłać formularz: sprawdzić `{"ok":true}`, wiersz w tabeli `leads` i mail w
+      Mailpit (http://localhost:8025). Ścieżki DB/mail/HTTP nie są pokryte testem
+      automatycznym (środowisko Nuxt/happy-dom vitest zawiesza się lokalnie).
+- [ ] **Zaufane proxy dla IP** — `POST /api/leads` liczy rate-limit po IP z nagłówka
+      `X-Forwarded-For`. Bez proxy nadpisującego ten nagłówek (Cloudflare/nginx)
+      atakujący omija limit. Przy wyborze hostingu: zapewnić takie proxy albo
+      przełączyć na IP gniazda (`server/api/leads.post.ts`).
+- [ ] **Rate-limit w pamięci procesu** — `server/utils/antispam.ts` trzyma liczniki
+      w `Map` (reset przy restarcie, brak współdzielenia między instancjami, brak
+      czyszczenia bezczynnych IP). Wystarcza na start; przy skalowaniu wymienić na
+      wspólny store i/lub Cloudflare Turnstile.
+- [ ] **Docker port** — lokalnie `3307:3306` (konflikt z innym MySQL). Na czystej
+      maszynie/CI wrócić do `3306` (`docker-compose.yml` + `.env.example`).
+- [ ] **Testy w środowisku Nuxt** — podbić `@nuxt/test-utils` do wersji zgodnej z
+      `nuxt@4.4.5`, by dało się testować render komponentów (honeypot, checkbox,
+      animacja sukcesu) — dziś pokryta tylko logika przez `useLeadForm`.
+
 ## 11. Placeholdery do podmiany
 
 > Anti-spam: honeypot (`website` field, hidden) i time-trap (`ts` = `Date.now()` na `onMounted`) dodane w formularzu (Task 6). ✅

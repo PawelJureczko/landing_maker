@@ -99,22 +99,25 @@ const inputClass =
               <div>
                 <label for="f-imie" class="mb-1.5 block text-sm text-panel-fg/70">Imię *</label>
                 <input id="f-imie" v-model="form.imie" type="text" placeholder="Jak się do Ciebie zwracać?"
-                  :class="[inputClass, tried && !form.imie.trim() ? 'border-red-400' : 'border-panel-fg/15']" />
+                  :class="[inputClass, (tried && !form.imie.trim()) || serverErrors.imie ? 'border-red-400' : 'border-panel-fg/15']" />
+                <p v-if="serverErrors.imie" class="mt-1 text-xs text-red-400">{{ serverErrors.imie }}</p>
               </div>
 
               <div>
                 <label for="f-kontakt" class="mb-1.5 block text-sm text-panel-fg/70">Telefon lub e-mail *</label>
                 <input id="f-kontakt" v-model="form.kontakt" type="text" placeholder="Jak mamy się odezwać?"
-                  :class="[inputClass, tried && !form.kontakt.trim() ? 'border-red-400' : 'border-panel-fg/15']" />
+                  :class="[inputClass, (tried && !form.kontakt.trim()) || serverErrors.kontakt ? 'border-red-400' : 'border-panel-fg/15']" />
+                <p v-if="serverErrors.kontakt" class="mt-1 text-xs text-red-400">{{ serverErrors.kontakt }}</p>
               </div>
 
               <div>
                 <label for="f-branza" class="mb-1.5 block text-sm text-panel-fg/70">Branża *</label>
                 <select id="f-branza" v-model="form.branza"
-                  :class="[inputClass, tried && !form.branza ? 'border-red-400' : 'border-panel-fg/15']">
+                  :class="[inputClass, (tried && !form.branza) || serverErrors.branza ? 'border-red-400' : 'border-panel-fg/15']">
                   <option value="">- wybierz -</option>
                   <option v-for="b in branze" :key="b" :value="b">{{ b }}</option>
                 </select>
+                <p v-if="serverErrors.branza" class="mt-1 text-xs text-red-400">{{ serverErrors.branza }}</p>
               </div>
 
               <div>
