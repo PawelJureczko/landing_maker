@@ -14,7 +14,10 @@ export function useAdminLogin() {
         '/api/auth/login',
         { method: 'POST', body: { email: form.email, password: form.password } },
       )
-      nextStep.value = res.nextStep ?? 'verify'
+      // Brak nextStep przy sukcesie nie powinien się zdarzyć (kontrakt serwera);
+      // gdyby się zdarzył, zostaw '' — strona nie nawiguje (bezpieczny no-op) zamiast
+      // zgadywać 'verify' i wysłać usera w złą stronę.
+      nextStep.value = res.nextStep ?? ''
     } catch (e: any) {
       error.value = e?.data?.error ?? 'Coś poszło nie tak. Spróbuj ponownie.'
     } finally {

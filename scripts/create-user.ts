@@ -32,7 +32,9 @@ function readLines(prompts: string[]): Promise<string[]> {
 
 async function main() {
   const [emailRaw, password = ''] = await readLines(['Email: ', 'Hasło (min 10 znaków): '])
-  const email = (emailRaw ?? '').trim()
+  // Normalizujemy do lowercase — logowanie też szuka po lowercase (handleLogin),
+  // więc przechowujemy spójnie, by mixed-case email nie zablokował konta.
+  const email = (emailRaw ?? '').trim().toLowerCase()
 
   const err = validateNewUserInput(email, password)
   if (err) {
