@@ -6,7 +6,13 @@ const { code, error, loading, qrUrl, secret, needsEnroll, loadState, startEnroll
 const qrImg = ref('')
 
 onMounted(async () => {
-  await loadState()
+  try {
+    await loadState()
+  } catch {
+    // Brak/wygasła sesja pending albo błąd sieci — wracamy do logowania,
+    // zamiast po cichu pokazać niewłaściwy formularz (enroll vs verify).
+    await navigateTo('/admin/login')
+  }
 })
 
 async function beginEnroll() {
