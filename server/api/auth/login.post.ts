@@ -16,11 +16,13 @@ export default defineEventHandler(async (event) => {
       return rows[0] ?? null
     },
     verifyPassword,
+    requireMfa: useRuntimeConfig().requireMfa,
   })
 
   if (result.session) {
-    // Sesja "pending" — bez mfa. Pełny dostęp dopiero po 2FA.
-    await setUserSession(event, { user: result.session, mfa: false })
+    // requireMfa=true → sesja "pending" (mfa:false), pełny dostęp dopiero po 2FA.
+    // requireMfa=false (dev) → fullSession:true → pełna sesja od razu.
+    await setUserSession(event, { user: result.session, mfa: result.fullSession === true })
   }
   setResponseStatus(event, result.status)
   return result.body

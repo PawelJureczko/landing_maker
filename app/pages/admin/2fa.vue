@@ -3,6 +3,7 @@ import QRCode from 'qrcode'
 definePageMeta({ layout: 'admin' })
 
 const { code, error, loading, qrUrl, secret, needsEnroll, loadState, startEnroll, verify } = useAdmin2fa()
+const { fetch: refreshSession } = useUserSession()
 const qrImg = ref('')
 
 onMounted(async () => {
@@ -21,7 +22,12 @@ async function beginEnroll() {
 }
 
 async function onVerify() {
-  if (await verify()) await navigateTo('/admin')
+  if (await verify()) {
+    // Serwer ustawił mfa:true w cookie — odśwież kliencki stan sesji, zanim
+    // middleware /admin go sprawdzi, inaczej widzi starą sesję pending i odbija.
+    await refreshSession()
+    await navigateTo('/admin')
+  }
 }
 </script>
 

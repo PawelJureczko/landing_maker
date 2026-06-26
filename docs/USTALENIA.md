@@ -164,6 +164,10 @@ Ton i copy: **po polsku**, język właściciela zakładu, bez żargonu.
       bramka XFF + licznik w pamięci procesu, co Warstwa 1).
 - [ ] **`NUXT_SESSION_PASSWORD`** — w produkcji ustawić realny, losowy sekret ≥32 znaki
       (lokalnie generowany przez `openssl rand`).
+- [ ] **2FA włączyć przed produkcją** — na czas dev wyłączone flagą
+      `NUXT_REQUIRE_MFA=false` w `.env` (logowanie samym hasłem → pełna sesja).
+      Domyślnie w `runtimeConfig` jest `requireMfa: true`; przed produkcją usuń
+      `NUXT_REQUIRE_MFA` z `.env` (albo ustaw `=true`) — kod 2FA jest nietknięty.
 
 ## 11. Placeholdery do podmiany
 

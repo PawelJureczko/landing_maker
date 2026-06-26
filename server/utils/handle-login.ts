@@ -8,12 +8,17 @@ export interface LoginDeps {
     { id: number; email: string; passwordHash: string; totpEnabled: boolean } | null
   >
   verifyPassword: (hash: string, plain: string) => Promise<boolean>
+  // Gdy false, 2FA jest pominięte: poprawne hasło od razu daje pełną sesję
+  // (nextStep 'done'). Domyślnie true (produkcja) — patrz runtimeConfig.requireMfa.
+  requireMfa: boolean
 }
 
 export interface LoginResult {
   status: 200 | 401 | 429
-  body: { ok: boolean; nextStep?: 'enroll' | 'verify'; error?: string }
+  body: { ok: boolean; nextStep?: 'enroll' | 'verify' | 'done'; error?: string }
   session?: { id: number; email: string }
+  // true → adapter ustawia pełną sesję (mfa:true) z pominięciem 2FA.
+  fullSession?: boolean
 }
 
 const GENERIC = 'Nieprawidłowy email lub hasło'
@@ -36,9 +41,17 @@ export async function handleLogin(input: unknown, deps: LoginDeps): Promise<Logi
   if (!user || !ok) {
     return { status: 401, body: { ok: false, error: GENERIC } }
   }
+
+  const session = { id: user.id, email: user.email }
+
+  // 2FA wyłączone (dev): pomijamy TOTP, od razu pełna sesja.
+  if (!deps.requireMfa) {
+    return { status: 200, body: { ok: true, nextStep: 'done' }, session, fullSession: true }
+  }
+
   return {
     status: 200,
     body: { ok: true, nextStep: user.totpEnabled ? 'verify' : 'enroll' },
-    session: { id: user.id, email: user.email },
+    session,
   }
 }

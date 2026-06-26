@@ -10,6 +10,7 @@ function deps(over: Partial<LoginDeps> = {}): LoginDeps {
     rateLimit: () => true,
     findUserByEmail: vi.fn(async () => user),
     verifyPassword: vi.fn(async () => true),
+    requireMfa: true,
     ...over,
   }
 }
@@ -21,6 +22,14 @@ describe('handleLogin', () => {
     const r = await handleLogin(body, deps())
     expect(r.status).toBe(200)
     expect(r.body.nextStep).toBe('enroll')
+    expect(r.session).toEqual({ id: 1, email: 'admin@witrynovo.pl' })
+  })
+
+  it('requireMfa=false → 200 + nextStep done + pełna sesja (fullSession)', async () => {
+    const r = await handleLogin(body, deps({ requireMfa: false }))
+    expect(r.status).toBe(200)
+    expect(r.body.nextStep).toBe('done')
+    expect(r.fullSession).toBe(true)
     expect(r.session).toEqual({ id: 1, email: 'admin@witrynovo.pl' })
   })
 

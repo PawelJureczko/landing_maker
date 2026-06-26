@@ -11,6 +11,8 @@ export default defineNuxtConfig({
     databaseUrl: '',
     leadNotifyTo: '',
     smtp: { host: '', port: '', from: '' },
+    // Domyślnie 2FA wymagane (produkcja). Lokalnie wyłącz: NUXT_REQUIRE_MFA=false
+    requireMfa: true,
   },
 
   routeRules: {

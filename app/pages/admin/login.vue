@@ -1,10 +1,18 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin' })
 const { form, error, loading, submit } = useAdminLogin()
+const { fetch: refreshSession } = useUserSession()
 
 async function onSubmit() {
   const step = await submit()
-  if (step) await navigateTo('/admin/2fa')
+  if (step === 'done') {
+    // 2FA wyłączone — login dał już pełną sesję. Odśwież stan klienta przed
+    // przejściem do panelu, inaczej middleware widzi starą sesję i odbija.
+    await refreshSession()
+    await navigateTo('/admin')
+  } else if (step) {
+    await navigateTo('/admin/2fa')
+  }
 }
 </script>
 
