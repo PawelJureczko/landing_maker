@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import QRCode from 'qrcode'
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'auth' })
 
 const { code, error, loading, qrUrl, secret, needsEnroll, loadState, startEnroll, verify } = useAdmin2fa()
 const { fetch: refreshSession } = useUserSession()

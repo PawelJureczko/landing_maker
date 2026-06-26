@@ -10,19 +10,11 @@ const STATUSY = LEAD_STATUSES
 const { data, refresh } = await useFetch<{ leads: Lead[] }>('/api/admin/leads', {
   query: { status, q },
 })
-
-async function logout() {
-  await $fetch('/api/auth/logout', { method: 'POST' })
-  await navigateTo('/admin/login')
-}
 </script>
 
 <template>
   <main class="mx-auto max-w-5xl px-6 py-10">
-    <div class="flex items-center justify-between">
-      <h1 class="display text-2xl">Leady</h1>
-      <button class="text-sm text-fg/60 underline" @click="logout">Wyloguj</button>
-    </div>
+    <h1 class="display text-2xl">Leady</h1>
 
     <div class="mt-6 flex flex-wrap gap-3">
       <select v-model="status" class="rounded-lg border border-line bg-white/5 px-3 py-2 text-sm" @change="refresh()">

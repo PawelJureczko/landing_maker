@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'admin' })
+definePageMeta({ layout: 'auth' })
 const { form, error, loading, submit } = useAdminLogin()
 const { fetch: refreshSession } = useUserSession()
 
