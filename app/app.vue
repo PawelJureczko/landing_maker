@@ -1,8 +1,7 @@
 <template>
   <div>
-    <ScrollProgress />
-    <CustomCursor />
-    <SiteNav />
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
