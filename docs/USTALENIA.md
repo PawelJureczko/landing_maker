@@ -151,6 +151,20 @@ Ton i copy: **po polsku**, język właściciela zakładu, bez żargonu.
       `nuxt@4.4.5`, by dało się testować render komponentów (honeypot, checkbox,
       animacja sukcesu) — dziś pokryta tylko logika przez `useLeadForm`.
 
+### Warstwa 2 — panel admina z 2FA (zbudowana)
+
+- [x] **Panel `/admin`** — logowanie hasło (`argon2`) + obowiązkowe TOTP (enrollment
+      QR przy 1. logowaniu, recovery `npm run user:reset-2fa`), lista leadów z
+      filtrem/szukajką, szczegół ze zmianą statusu i notatkami. Konta: `npm run user:create`.
+- [ ] **Smoke przeglądarkowy** — `npm run dev` u siebie: zaloguj `admin@witrynovo.pl`,
+      przejdź enrollment 2FA, sprawdź listę/filtr, zmianę statusu i dodanie notatki.
+      Logika + warstwa danych pokryte testami (69) i smoke'em na żywej bazie; sam
+      render stron i wiring sesji (cookie) niesprawdzone automatem — wymaga ręcznego testu.
+- [ ] **Zaufane proxy / rate-limit** — dotyczy też `/login` i `/2fa/verify` (ta sama
+      bramka XFF + licznik w pamięci procesu, co Warstwa 1).
+- [ ] **`NUXT_SESSION_PASSWORD`** — w produkcji ustawić realny, losowy sekret ≥32 znaki
+      (lokalnie generowany przez `openssl rand`).
+
 ## 11. Placeholdery do podmiany
 
 > Anti-spam: honeypot (`website` field, hidden) i time-trap (`ts` = `Date.now()` na `onMounted`) dodane w formularzu (Task 6). ✅
