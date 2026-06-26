@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Lead } from '../../../server/database/schema'
+import { LEAD_STATUSES } from '../../../server/database/schema'
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
 const status = ref('')
 const q = ref('')
-const STATUSY = ['new', 'contacted', 'project_sent', 'revisions', 'won', 'lost']
+const STATUSY = LEAD_STATUSES
 
 const { data, refresh } = await useFetch<{ leads: Lead[] }>('/api/admin/leads', {
   query: { status, q },

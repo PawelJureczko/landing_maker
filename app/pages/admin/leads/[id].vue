@@ -1,27 +1,39 @@
 <script setup lang="ts">
 import type { Lead, LeadNote } from '../../../../server/database/schema'
+import { LEAD_STATUSES } from '../../../../server/database/schema'
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
 const route = useRoute()
-const STATUSY = ['new', 'contacted', 'project_sent', 'revisions', 'won', 'lost']
+const STATUSY = LEAD_STATUSES
 const { data, refresh } = await useFetch<{ lead: Lead; notes: LeadNote[] }>(
   `/api/admin/leads/${route.params.id}`,
 )
 
 const noteBody = ref('')
+const actionError = ref('')
 
 async function setStatus(status: string) {
-  await $fetch(`/api/admin/leads/${route.params.id}`, { method: 'PATCH', body: { status } })
-  await refresh()
+  actionError.value = ''
+  try {
+    await $fetch(`/api/admin/leads/${route.params.id}`, { method: 'PATCH', body: { status } })
+    await refresh()
+  } catch {
+    actionError.value = 'Nie udało się zmienić statusu. Odśwież i spróbuj ponownie.'
+  }
 }
 async function addNote() {
   if (!noteBody.value.trim()) return
-  await $fetch(`/api/admin/leads/${route.params.id}/notes`, {
-    method: 'POST',
-    body: { body: noteBody.value },
-  })
-  noteBody.value = ''
-  await refresh()
+  actionError.value = ''
+  try {
+    await $fetch(`/api/admin/leads/${route.params.id}/notes`, {
+      method: 'POST',
+      body: { body: noteBody.value },
+    })
+    noteBody.value = ''
+    await refresh()
+  } catch {
+    actionError.value = 'Nie udało się zapisać notatki. Spróbuj ponownie.'
+  }
 }
 </script>
 
@@ -43,6 +55,8 @@ async function addNote() {
         <option v-for="s in STATUSY" :key="s" :value="s">{{ s }}</option>
       </select>
     </div>
+
+    <p v-if="actionError" class="mt-3 text-sm text-red-400">{{ actionError }}</p>
 
     <section class="mt-8">
       <h2 class="text-lg font-semibold">Notatki</h2>
